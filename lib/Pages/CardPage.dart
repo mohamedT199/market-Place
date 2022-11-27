@@ -31,12 +31,17 @@ class CardPageState extends State<CardPage> {
                     itemBuilder: (context, i) {
                       return Card(
                         child: ListTile(
+                          leading: Image.asset(
+                            value.basketItems[i].image,
+                          ),
                           title: Text(value.basketItems[i].name),
                           trailing: IconButton(
                               onPressed: () {
                                 value.removeItem(value.basketItems[i]);
                               },
-                              icon: const Icon(Icons.remove_shopping_cart)),
+                              icon: const Icon(Icons.remove_shopping_cart) ,
+                            color: const Color.fromRGBO(243, 173, 37, 1),
+                          ),
                         ),
                       );
                     },
@@ -50,19 +55,17 @@ class CardPageState extends State<CardPage> {
             children: <Widget>[
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text("TOTAL", style: Theme.of(context).textTheme.subtitle2),
-                      Selector<Cart, double>(
-                          builder: (context , value , child){
-                            return Text("$value", style: Theme.of(context).textTheme.headlineSmall);
-                          } ,
-                          selector: (context, value) => value.totalPrice
-                      ) ,
-                    ],
-                  ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text("TOTAL", style: Theme.of(context).textTheme.subtitle2 ),
+                    Selector<Cart, double>(
+                        builder: (context , value , child){
+                          return Text("$value", style: Theme.of(context).textTheme.headlineSmall);
+                        } ,
+                        selector: (context, value) => value.totalPrice
+                    ) ,
+                  ],
                 ),
               ),
               Expanded(
@@ -75,7 +78,9 @@ class CardPageState extends State<CardPage> {
                         color: Colors.white,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/page3");
+                    },
                     //color: Colors.black,
                     //shape: RoundedRectangleBorder(
                     //  borderRadius: BorderRadius.circular(15.0),

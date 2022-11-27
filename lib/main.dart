@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled8/Pages/CardPage.dart';
+import 'package:untitled8/Pages/GetwayScreen.dart';
 import 'package:untitled8/Pages/HomePage.dart';
 import 'package:untitled8/Pages/ItemScreen.dart';
 import 'package:untitled8/Pages/SettingScreen.dart';
@@ -25,14 +26,15 @@ void main() {
 Map<String, Widget Function(BuildContext)> route = {
   "/page1": (context) => CardPage(),
   "/page2": (context) => SettingScreen(),
+  "/page3": (context) => Getway(),
 };
 
 class OnlineSop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SplashScreen(),
-      theme: Provider.of<Details>(context).theme ?  ThemeData.light() : ThemeData.dark() ,
+      home: SplashScreen("BAHGA"),
+      theme: Provider.of<Details>(context).theme ?  ThemeData.dark() : ThemeData.light()  ,
       debugShowCheckedModeBanner: false,
       routes: route,
     );

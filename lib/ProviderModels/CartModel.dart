@@ -22,6 +22,12 @@ class Cart with ChangeNotifier{
   get count => itemCount ;
 
   List<Item> get basketItems => _items ;
+  removeItems() {
+    _items = [] ;
+    totalPrice = 0 ;
+    itemCount = 0  ;
+    notifyListeners() ;
+  }
 
 
 

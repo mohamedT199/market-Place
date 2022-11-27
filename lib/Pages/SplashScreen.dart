@@ -4,13 +4,15 @@ import 'package:page_transition/page_transition.dart';
 import 'package:untitled8/Pages/HomePage.dart';
 
 class SplashScreen extends StatelessWidget {
+  String title ;
+  SplashScreen(this.title) ;
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
       splash: Column(
-        children: const [
+        children:  [
           Text(
-            "BAHGA",
+            title ,
             style: TextStyle(
                 fontSize: 40, fontWeight: FontWeight.bold, color: Color(0xff0c0a0b)),
           ),

@@ -17,16 +17,16 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   bool checked = true ;
   List<Item> items = [
-    Item(name: 'S2 OUT-LINE', price: 250.0 , description: "Phone From Samsung  this phone is made by the samsaung company "),
-    Item(name: 'CR5 KR_ONLLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company "),
-    Item(name: 'S2 OUT-LINE', price: 250.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company "),
-    Item(name: 'CR5 KR_ONLLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company "),
-    Item(name: 'S2 OUT-LINE', price: 250.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  "),
-    Item(name: 'CR5 KR_ONLLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company "),
-    Item(name: 'S2 OUT-LINE', price: 250.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  "),
-    Item(name: 'CR5 KR_ONLLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company "),
-    Item(name: 'S2 OUT-LINE', price: 250.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  "),
-    Item(name: 'CR5 KR_ONLLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company "),
+    Item(name: 'S2 OUT-LINE', price: 250.0 , description: "Phone From Samsung  this phone is made by the samsaung company " , image: "assets/phone6.png"),
+    Item(name: 'CR5 KR_ONLLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/phone6.png"),
+    Item(name: 'S2 OUT-LINE', price: 250.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company " , image:  "assets/phone6.png"),
+    Item(name: 'CR5 KR_ONLLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/phone6.png"),
+    Item(name: 'S2 OUT-LINE', price: 250.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  " , image: "assets/phone6.png"),
+    Item(name: 'CR5 KR_ONLLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/phone6.png"),
+    Item(name: 'S2 OUT-LINE', price: 250.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  " , image: "assets/phone6.png"),
+    Item(name: 'CR5 KR_ONLLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/phone6.png"),
+    Item(name: 'S2 OUT-LINE', price: 250.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  " , image: "assets/phone6.png"),
+    Item(name: 'CR5 KR_ONLLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/phone6.png"),
   ];
 
   cartIcon(String itemCount) => Padding(
@@ -52,8 +52,8 @@ class _HomeState extends State<Home> {
                       : Positioned(
                           child: Stack(
                           children: <Widget>[
-                            Icon(Icons.brightness_1,
-                                size: 20.0, color: Colors.green[800]),
+                            const Icon(Icons.brightness_1,
+                                size: 20.0, color: Color.fromRGBO(243, 173, 37, 1)),
                             Positioned(
                                 top: 4.0,
                                 right: 6.0,
@@ -107,6 +107,9 @@ class _HomeState extends State<Home> {
                     builder: (context, value, child) {
                       return ListTile(
                         title: Text(items[i].name),
+                        leading: Image.asset(
+                          items[i].image,
+                        ),
                         subtitle: Text(items[i].description) ,
                         onTap: (){
                           Navigator.push(
@@ -117,7 +120,7 @@ class _HomeState extends State<Home> {
                             onPressed: () {
                               value.addItem(items[i]);
                             },
-                            icon: const Icon(Icons.add_shopping_cart)),
+                            icon: const Icon(Icons.add_shopping_cart , color: Color.fromRGBO(243, 173, 37, 1),)),
                       );
                     },
                   ));

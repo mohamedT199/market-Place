@@ -87,6 +87,9 @@ class SearchScreenState extends State<SearchScreen>{
                     return Card(child: Consumer<Cart>(
                       builder: (context, value, child) {
                         return ListTile(
+                          leading: Image.asset(
+                            items[i].image,
+                          ),
                           title: Text(items[i].name),
                           subtitle: Text(items[i].description) ,
                           onTap: (){
