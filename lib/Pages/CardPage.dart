@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 import 'package:untitled8/Models/ItemModel.dart';
+import 'package:untitled8/Pages/AdminScreen.dart';
 import 'package:untitled8/ProviderModels/CartModel.dart';
+
+import 'GetwayScreen.dart';
 
 class CardPage extends StatefulWidget {
 
@@ -79,7 +82,10 @@ class CardPageState extends State<CardPage> {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.pushNamed(context, "/page3");
+                      //Navigator.pushNamed(context, "/page3");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Getway()));
                     },
                     //color: Colors.black,
                     //shape: RoundedRectangleBorder(

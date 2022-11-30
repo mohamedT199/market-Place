@@ -17,16 +17,16 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   bool checked = true ;
   List<Item> items = [
-    Item(name: 'S2 OUT-LINE', price: 250.0 , description: "Phone From Samsung  this phone is made by the samsaung company " , image: "assets/phone6.png"),
-    Item(name: 'CR5 KR_ONLLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/phone6.png"),
-    Item(name: 'S2 OUT-LINE', price: 250.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company " , image:  "assets/phone6.png"),
-    Item(name: 'CR5 KR_ONLLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/phone6.png"),
-    Item(name: 'S2 OUT-LINE', price: 250.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  " , image: "assets/phone6.png"),
-    Item(name: 'CR5 KR_ONLLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/phone6.png"),
-    Item(name: 'S2 OUT-LINE', price: 250.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  " , image: "assets/phone6.png"),
-    Item(name: 'CR5 KR_ONLLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/phone6.png"),
-    Item(name: 'S2 OUT-LINE', price: 250.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  " , image: "assets/phone6.png"),
-    Item(name: 'CR5 KR_ONLLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/phone6.png"),
+    Item(name: 'S2 OUTs-LINE', price: 250.0 , description: "Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone1.jpg"),
+    Item(name: 'CR5 KR_ONLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone2.jpg"),
+    Item(name: 'F2K -IN line', price: 900.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company " , image:  "assets/realphone3.jpg"),
+    Item(name: 'KJ DFz Online', price: 2930.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone1.jpg"),
+    Item(name: 'a2D P-Online', price: 160.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  " , image: "assets/realphone2.jpg"),
+    Item(name: 'Rr tT store', price: 200.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone3.jpg"),
+    Item(name: 'FD3 - FC Online', price: 1200.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  " , image: "assets/realphone1.jpg"),
+    Item(name: 'Mkm - Je Inline ', price: 650.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone2.jpg"),
+    Item(name: 'Da - oIcln Kstore', price: 320.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  " , image: "assets/realphone3.jpg"),
+    Item(name: 'FJh - JStore', price: 540.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone1.jpg"),
   ];
 
   cartIcon(String itemCount) => Padding(
@@ -96,6 +96,51 @@ class _HomeState extends State<Home> {
           }, icon: const Icon(Icons.search)) ,
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: Container(
+          height: 50,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IconButton(
+                iconSize: 30.0,
+                padding: EdgeInsets.only(left: 65),
+                icon: Icon(Icons.settings),
+                onPressed: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil('/page5', (Route route) => false);
+                },
+              ),
+              IconButton(
+                iconSize: 30.0,
+                padding: EdgeInsets.only(right: 65.0),
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil('/page6', (Route route) => false);
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: Container(
+        height: 60.0,
+        width: 60.0,
+        child: FittedBox(
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.of(context).pushNamedAndRemoveUntil('/page4', (Route route) => false);
+            },
+            child: Icon(
+              Icons.home,
+              color: Colors.white,
+            ),
+            // elevation: 5.0,
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -110,7 +155,17 @@ class _HomeState extends State<Home> {
                         leading: Image.asset(
                           items[i].image,
                         ),
-                        subtitle: Text(items[i].description) ,
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(items[i].description),
+                            Divider(thickness: 0.5 , ) ,
+                            Text(
+                                "Price ${items[i].price}"
+                            ),
+                          ],
+                        ) ,
+
                         onTap: (){
                           Navigator.push(
                               context,

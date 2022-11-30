@@ -27,6 +27,51 @@ class SearchScreenState extends State<SearchScreen>{
         title: const Text("Search Screen"),
 
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: Container(
+          height: 50,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IconButton(
+                iconSize: 30.0,
+                padding: EdgeInsets.only(left: 65),
+                icon: Icon(Icons.settings),
+                onPressed: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil('/page5', (Route route) => false);
+                },
+              ),
+              IconButton(
+                iconSize: 30.0,
+                padding: EdgeInsets.only(right: 65.0),
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  Navigator.of(context).pushNamedAndRemoveUntil('/page6', (Route route) => false);
+                },
+              )
+            ],
+          ),
+        ),
+      ),
+      floatingActionButton: Container(
+        height: 60.0,
+        width: 60.0,
+        child: FittedBox(
+          child: FloatingActionButton(
+            onPressed: () {
+              Navigator.of(context).pushNamedAndRemoveUntil('/page4', (Route route) => false);
+            },
+            child: Icon(
+              Icons.home,
+              color: Colors.white,
+            ),
+            // elevation: 5.0,
+          ),
+        ),
+      ),
       body: Container(
         margin: const EdgeInsets.only(top: 10, left: 10, right: 10),
         child: Column(

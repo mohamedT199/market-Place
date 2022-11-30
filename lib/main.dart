@@ -1,10 +1,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:untitled8/Pages/AdminScreen.dart';
 import 'package:untitled8/Pages/CardPage.dart';
 import 'package:untitled8/Pages/GetwayScreen.dart';
 import 'package:untitled8/Pages/HomePage.dart';
 import 'package:untitled8/Pages/ItemScreen.dart';
+import 'package:untitled8/Pages/SearchScreen.dart';
 import 'package:untitled8/Pages/SettingScreen.dart';
 import 'package:untitled8/Pages/SplashScreen.dart';
 import 'package:untitled8/ProviderModels/AppDetials.dart';
@@ -27,6 +29,9 @@ Map<String, Widget Function(BuildContext)> route = {
   "/page1": (context) => CardPage(),
   "/page2": (context) => SettingScreen(),
   "/page3": (context) => Getway(),
+  "/page4": (context) => Home(),
+  "/page5": (context) => AdminScreen() ,
+  "/page6": (context) => SearchScreen(Provider.of<Details>(context).getAppItems())  ,
 };
 
 class OnlineSop extends StatelessWidget {

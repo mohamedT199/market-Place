@@ -216,7 +216,7 @@ class ItemScreenState extends State<ItemScreen> {
                     padding: const EdgeInsets.only(left: 10.0, top: 500 , bottom: 10 , right: 10.0),
                     child: InkWell(
                         onTap: () {
-
+                          Navigator.pushNamed(context, "page1") ;
                         },
                         child: Container(
                           height: 42,
