@@ -8,6 +8,7 @@ import 'package:untitled8/ProviderModels/CartModel.dart';
 //import 'package:untitled8/UserData.dart';
 
 class Home extends StatefulWidget {
+
   @override
   State<StatefulWidget> createState() {
     return _HomeState();
@@ -16,7 +17,19 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   bool checked = true ;
-  List<Item> items = [
+   List<Item> items = [
+    Item(name: 'S2 OUTs-LINE', price: 250.0 , description: "Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone1.jpg" , company: "samsung" , total: 50),
+    Item(name: 'CR5 KR_ONLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone2.jpg" , company:  "apple" , total: 43 ),
+    Item(name: 'F2K -IN line', price: 900.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company " , image:  "assets/realphone3.jpg" , company:  "xmi" , total: 65 ),
+    Item(name: 'KJ DFz Online', price: 2930.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone1.jpg" , company: "oppo" , total: 16),
+    Item(name: 'a2D P-Online', price: 160.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  " , image: "assets/realphone2.jpg" , company:"samsung" , total: 27),
+    Item(name: 'Rr tT store', price: 200.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone3.jpg" , company:"apple"  , total:  14),
+    Item(name: 'FD3 - FC Online', price: 1200.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  " , image: "assets/realphone1.jpg" , company: "xmi" , total:  59),
+    Item(name: 'Mkm - Je Inline ', price: 650.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone2.jpg" , company:"oppo"  , total:  6),
+    Item(name: 'Da - oIcln Kstore', price: 320.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  " , image: "assets/realphone3.jpg" , company:"samsung"   , total:  8),
+    Item(name: 'FJh - JStore', price: 540.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone1.jpg" , company: "oppo" , total:  12 ),
+  ];
+  /*List<Item> items = [
     Item(name: 'S2 OUTs-LINE', price: 250.0 , description: "Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone1.jpg"),
     Item(name: 'CR5 KR_ONLINE', price: 350.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone2.jpg"),
     Item(name: 'F2K -IN line', price: 900.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company " , image:  "assets/realphone3.jpg"),
@@ -27,7 +40,7 @@ class _HomeState extends State<Home> {
     Item(name: 'Mkm - Je Inline ', price: 650.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone2.jpg"),
     Item(name: 'Da - oIcln Kstore', price: 320.0 , description: "Phone From Samsung Phone From Samsung  this phone is made by the samsaung company  " , image: "assets/realphone3.jpg"),
     Item(name: 'FJh - JStore', price: 540.0 , description: "Phone From SAWME Phone From Samsung  this phone is made by the samsaung company " , image: "assets/realphone1.jpg"),
-  ];
+  ];*/
 
   cartIcon(String itemCount) => Padding(
         padding: const EdgeInsets.all(10.0),
@@ -105,14 +118,7 @@ class _HomeState extends State<Home> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              IconButton(
-                iconSize: 30.0,
-                padding: EdgeInsets.only(left: 65),
-                icon: Icon(Icons.settings),
-                onPressed: () {
-                  Navigator.of(context).pushNamedAndRemoveUntil('/page5', (Route route) => false);
-                },
-              ),
+              checkadmin(),
               IconButton(
                 iconSize: 30.0,
                 padding: EdgeInsets.only(right: 65.0),
@@ -161,7 +167,7 @@ class _HomeState extends State<Home> {
                             Text(items[i].description),
                             Divider(thickness: 0.5 , ) ,
                             Text(
-                                "Price ${items[i].price}"
+                                "Price ${items[i].price} \nCompany : ${items[i].company} "
                             ),
                           ],
                         ) ,
@@ -184,5 +190,28 @@ class _HomeState extends State<Home> {
         ]),
       ),
     );
+  }
+
+  Widget checkadmin(){
+    bool isadmin = Provider.of<Cart>(context , listen: false).checkAdmin ;
+    if(isadmin){
+      return IconButton(
+        iconSize: 30.0,
+        padding: EdgeInsets.only(left: 65),
+        icon: Icon(Icons.settings),
+        onPressed: () {
+          Navigator.of(context).pushNamedAndRemoveUntil('/page5', (Route route) => false);
+        },
+      ) ;
+    }
+    return IconButton(
+        iconSize: 30.0,
+        padding: EdgeInsets.only(left: 65),
+        icon: Icon(Icons.shopping_cart),
+        onPressed: () {
+          Navigator.of(context).pushNamedAndRemoveUntil('/page2', (Route route) => false);
+        },
+      ) ;
+
   }
 }

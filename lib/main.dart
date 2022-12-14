@@ -6,9 +6,11 @@ import 'package:untitled8/Pages/CardPage.dart';
 import 'package:untitled8/Pages/GetwayScreen.dart';
 import 'package:untitled8/Pages/HomePage.dart';
 import 'package:untitled8/Pages/ItemScreen.dart';
+import 'package:untitled8/Pages/LoginScreen.dart';
 import 'package:untitled8/Pages/SearchScreen.dart';
 import 'package:untitled8/Pages/SettingScreen.dart';
 import 'package:untitled8/Pages/SplashScreen.dart';
+import 'package:untitled8/Pages/addItemScreen.dart';
 import 'package:untitled8/ProviderModels/AppDetials.dart';
 import 'package:untitled8/ProviderModels/CartModel.dart';
 
@@ -31,14 +33,16 @@ Map<String, Widget Function(BuildContext)> route = {
   "/page3": (context) => Getway(),
   "/page4": (context) => Home(),
   "/page5": (context) => AdminScreen() ,
-  "/page6": (context) => SearchScreen(Provider.of<Details>(context).getAppItems())  ,
+  "/page6": (context) => SearchScreen(Provider.of<Details>(context , listen: false).getAppItems())  ,
+  "/page7": (context) => LoginScreen() ,
+
 };
 
 class OnlineSop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: SplashScreen("BAHGA"),
+      home: SplashScreen("BAHGA" , LoginScreen()),
       theme: Provider.of<Details>(context).theme ?  ThemeData.dark() : ThemeData.light()  ,
       debugShowCheckedModeBanner: false,
       routes: route,

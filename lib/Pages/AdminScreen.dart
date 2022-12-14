@@ -1,13 +1,30 @@
+
+
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:untitled8/Models/ItemModel.dart';
+import 'package:untitled8/Pages/addItemScreen.dart';
+
+import 'package:untitled8/ProviderModels/AppDetials.dart';
+import 'package:provider/provider.dart';
+import 'package:untitled8/Pages/HomePage.dart';
+import 'package:untitled8/ProviderModels/CartModel.dart';
 
 
 
 
 class AdminScreen extends StatefulWidget{
-  const AdminScreen({Key? key}) : super(key: key);
+   AdminScreen({Key? key}) : super(key: key);
 
+  final Map<String , Color> ColorsCompany = {
+    "apple" :   Colors.indigo,
+    "xmi"  : Colors.deepPurple ,
+    "oppo" :  Colors.teal ,
+    "samsung" : Colors.lightBlueAccent ,
+  } ;
   @override
   State<StatefulWidget> createState() {
     return AdminScreenState();
@@ -21,9 +38,11 @@ class AdminScreen extends StatefulWidget{
 
 
 class AdminScreenState extends State<AdminScreen>{
+
   List<Color> colors = [ Colors.indigo  , Colors.deepPurple , Colors.teal , Colors.lightBlueAccent   ] ;
   @override
   Widget build(BuildContext context) {
+    Details provider = Provider.of<Details>(context , listen: false );
     return Scaffold(
       appBar: AppBar(title: const Text("Admin Panel") , ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -94,14 +113,14 @@ class AdminScreenState extends State<AdminScreen>{
           child: GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: 4,
+            itemCount: provider.getCompanyNamesLength(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 8,
               mainAxisSpacing: 8,
               childAspectRatio: 1,
             ),
-            itemBuilder: (context, index) => FileInfoCard(colors[index]),
+            itemBuilder: (context, index) => FileInfoCard(widget.ColorsCompany.entries.firstWhere((element) => element.key.compareTo(provider.getAppItems()[index].company) == 0 ).value ?? Colors.red,provider.getCompanyNames()[index] , provider.getTotalItemOfCompany(provider.getCompanyNames()[index]) , provider.getStorageTotalItemOfCompany(provider.getCompanyNames()[index]) , provider.getCompanyNames()[index]   ),
           ),
         ) ,
             //const SizedBox(height: 8,) ,
@@ -124,8 +143,8 @@ class AdminScreenState extends State<AdminScreen>{
               child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: 4,
-                itemBuilder: (context, index) => SalesStock(colors[index]),
+                itemCount: provider.getAppItemsLength() ,
+                itemBuilder: (context, index) => SalesStock( widget.ColorsCompany.entries.firstWhere((element) => element.key.compareTo(provider.getAppItems()[index].company) == 0 ).value  ,provider.getAppItems() ,  index , provider.getStorageItems()),
               ),
             ) ,
           ],
@@ -142,7 +161,10 @@ class AdminScreenState extends State<AdminScreen>{
 
 class SalesStock extends StatefulWidget {
   Color color ;
-  SalesStock(this.color) ;
+  List<Item> AfterSoldItems ;
+  int index ;
+  List<Item> Stockitems ;
+  SalesStock(this.color ,this.AfterSoldItems ,  this.index , this.Stockitems) ;
   @override
   State<StatefulWidget> createState() {
     return SalesStockState();
@@ -152,6 +174,10 @@ class SalesStock extends StatefulWidget {
 }
 
 class SalesStockState  extends State<SalesStock>{
+
+  getRate(){
+    return (((widget.AfterSoldItems[widget.index].total)/(widget.Stockitems[widget.index].total))*100).toInt() ;
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -159,7 +185,7 @@ class SalesStockState  extends State<SalesStock>{
         padding: const EdgeInsets.fromLTRB(5, 0, 5, 5),
         child: Container(
           decoration: BoxDecoration(
-            color: widget.color,
+            color: widget.color.value != null  ? widget.color :  Colors.red,
             borderRadius: const BorderRadius.all(Radius.circular(5)),
           ),
           child: Column(
@@ -174,13 +200,13 @@ class SalesStockState  extends State<SalesStock>{
                       color: Colors.blueAccent.withOpacity(0.1),
                       borderRadius: const BorderRadius.all(Radius.circular(5)),
                     ),
-                    child: Text("Company Samsung ")
+                    child: Text("Company : ${widget.Stockitems[widget.index].company} ")
                 ),
               ) ,
               Padding(
                 padding: EdgeInsets.fromLTRB(16, 4, 16, 4),
                 child: ProgressLine(
-                    percentage: 40),
+                    percentage: getRate()),
               ) ,
               Padding(padding: EdgeInsets.all(8) ,
               child:Container(
@@ -189,8 +215,8 @@ class SalesStockState  extends State<SalesStock>{
                   color: Colors.blueAccent.withOpacity(0.1),
                   borderRadius: const BorderRadius.all(Radius.circular(5)),
                 ),
-                child: const Text(
-                    "Number of Stoke Pieces 4 "
+                child:  Text(
+                    "Number of Sold Pieces ${widget.Stockitems[widget.index].total - widget.AfterSoldItems[widget.index].total} of total ${widget.Stockitems[widget.index].total} "
                 ),
               )
               ),
@@ -209,67 +235,86 @@ class SalesStockState  extends State<SalesStock>{
 
 class FileInfoCard extends StatelessWidget {
   Color color ;
-  FileInfoCard(this.color, {Key? key}) : super(key: key) ;
+  String Company ;
+  int totalSold ;
+  int totalStroage ;
+  String company ;
+  FileInfoCard(this.color, this.Company, this.totalSold , this.totalStroage , this.company , {Key? key}) : super(key: key) ;
 
-
+  getRate(){
+    print(company) ;
+    print("-------------------") ;
+    print(((totalSold/totalStroage)*100)) ;
+    print(totalSold);
+    print(totalStroage);
+    return ((totalSold/totalStroage)*100).toInt() ;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration:  BoxDecoration(
-        color: color,
-        borderRadius: const  BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Container(
-                padding: const EdgeInsets.all(10 * 0.75),
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  color: Colors.blueAccent.withOpacity(0.1),
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+    return GestureDetector(
+      onTap: (){
+        Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddItemScreen(Company)));
+
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration:  BoxDecoration(
+          color: color.value != null  ? color :  Colors.red,
+          borderRadius: const  BorderRadius.all(Radius.circular(10)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10 * 0.75),
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: Colors.blueAccent.withOpacity(0.1),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  ),
+                  child: const Icon(Icons.accessibility_new_sharp)
                 ),
-                child: const Icon(Icons.accessibility_new_sharp)
-              ),
-              const Icon(Icons.more_vert, color: Colors.white54)
-            ],
-          ),
-          Text(
-            "Samsung",
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
-          ProgressLine(
-            color: Colors.orange,
-            percentage: 50,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Rate of sales",
-                style: Theme.of(context)
-                    .textTheme
-                    .caption!
-                    .copyWith(color: Colors.white70),
-              ),
-              Text(
-                "monthly",
-                style: Theme.of(context)
-                    .textTheme
-                    .caption!
-                    .copyWith(color: Colors.white),
-              ),
-            ],
-          )
-        ],
+                const Icon(Icons.more_vert, color: Colors.white54)
+              ],
+            ),
+            Text(
+              Company,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
+            ProgressLine(
+              color: Colors.orange,
+              percentage: getRate(),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Storage : $totalStroage",
+                  style: Theme.of(context)
+                      .textTheme
+                      .caption!
+                      .copyWith(color: Colors.white70),
+                ),
+                Text(
+                  "Sold : ${totalStroage - totalSold}",
+                  style: Theme.of(context)
+                      .textTheme
+                      .caption!
+                      .copyWith(color: Colors.white),
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

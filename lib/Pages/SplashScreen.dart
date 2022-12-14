@@ -2,10 +2,12 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:untitled8/Pages/HomePage.dart';
+import 'package:untitled8/Pages/LoginScreen.dart';
 
 class SplashScreen extends StatelessWidget {
   String title ;
-  SplashScreen(this.title) ;
+  StatefulWidget classroute ;
+  SplashScreen(this.title , this.classroute) ;
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
@@ -19,7 +21,7 @@ class SplashScreen extends StatelessWidget {
         ],
       ),
       backgroundColor:Color.fromRGBO(243, 173, 37, 1),
-      nextScreen: Home(),
+      nextScreen: classroute,
       splashIconSize: 250,
       duration: 3000,
       splashTransition: SplashTransition.fadeTransition,

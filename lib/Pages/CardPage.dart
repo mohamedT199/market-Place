@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:untitled8/Models/ItemModel.dart';
 import 'package:untitled8/Pages/AdminScreen.dart';
+import 'package:untitled8/ProviderModels/AppDetials.dart';
 import 'package:untitled8/ProviderModels/CartModel.dart';
 
 import 'GetwayScreen.dart';
@@ -82,6 +83,7 @@ class CardPageState extends State<CardPage> {
                       ),
                     ),
                     onPressed: () {
+                      Provider.of<Details>(context , listen: false).addToSoldItems(Provider.of<Cart>(context , listen: false).basketItems) ;
                       //Navigator.pushNamed(context, "/page3");
                       Navigator.push(
                           context,

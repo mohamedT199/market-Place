@@ -168,7 +168,7 @@ class GetwayState extends State<Getway> {
                               Provider.of<Cart>(context,listen: false).removeItems() ;
                               Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => SplashScreen("Payment Done")));
+                                  MaterialPageRoute(builder: (context) => SplashScreen("Payment Done" , Home())));
                             } else {
                               print('invalid!');
                             }

@@ -5,7 +5,9 @@ class Cart with ChangeNotifier{
 
   List<Item> _items = [];
   double totalPrice = 0.0 ;
+  bool isAdmin = false ;
   int itemCount = 0 ;
+
   addItem(Item item) {
     _items.add(item) ;
     totalPrice += item.price ;
@@ -28,6 +30,14 @@ class Cart with ChangeNotifier{
     itemCount = 0  ;
     notifyListeners() ;
   }
+  setAdmin(bool check) {
+    isAdmin = check ;
+    notifyListeners() ;
+  }
+
+
+
+  get checkAdmin => isAdmin ;
 
 
 
